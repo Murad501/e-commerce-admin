@@ -2,12 +2,11 @@ import { updateProfile } from "firebase/auth";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { FaGoogle } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { userProvider } from "../../Context/UserContext";
 
 const Register = () => {
-  const { createUser, googleLogin } = useContext(userProvider);
+  const { createUser } = useContext(userProvider);
   const [firebaseError, setFirebaseError] = useState("");
   const [passwordWarning, setPasswordWarning] = useState("");
 
@@ -47,16 +46,6 @@ const Register = () => {
       })
       .catch((err) => setFirebaseError(err.message));
   };
-  //seller registration
-  // google login
-  const handleGoogleLogin = () => {
-    googleLogin()
-      .then(() => {
-        navigate(from, { replace: true });
-        toast.success("user register successfully");
-      })
-      .catch((err) => setFirebaseError(err.message));
-  };
 
   return (
     <div className="hero text-black px-1">
@@ -71,7 +60,7 @@ const Register = () => {
           </p>
         )}
         <form onSubmit={handleSubmit(handleRegister)}>
-          <div className="form-control">
+          <div className="form-control mb-3">
             <label className="label">
               <span className="text-sm text-gray-500">Name</span>
             </label>
@@ -85,7 +74,7 @@ const Register = () => {
               {errors.name && <span>{errors.name?.message}</span>}
             </p>
           </div>
-          <div className="form-control">
+          <div className="form-control mb-3">
             <label className="label">
               <span className="text-sm text-gray-500">Number</span>
             </label>
@@ -100,7 +89,7 @@ const Register = () => {
               {errors.number && <span>{errors.number?.message}</span>}
             </p>
           </div>
-          <div className="form-control">
+          <div className="form-control mb-3">
             <label className="label">
               <span className="text-sm text-gray-500">Email</span>
             </label>
@@ -114,7 +103,7 @@ const Register = () => {
               {errors.email && <span>{errors.email?.message}</span>}
             </p>
           </div>
-          <div className="form-control">
+          <div className="form-control mb-3">
             <label className="label">
               <span className="text-gray-500 text-sm">Password</span>
             </label>
@@ -132,7 +121,7 @@ const Register = () => {
           <div className="form-control mt-6">
             <button
               type="submit"
-              className="py-3 bg-blue-500 rounded-sm text-white font-semibold"
+              className="py-3 bg-emerald-700 rounded-sm text-white font-semibold"
             >
               Register
             </button>
@@ -140,18 +129,10 @@ const Register = () => {
         </form>
         <p className="text-center my-4">
           Already have an account?{" "}
-          <Link to="/login" className="text-primary">
+          <Link to="/login" className="text-emerald-700 font-bold">
             Login
           </Link>
         </p>
-        <div className="divider text-md w-1/2 mx-auto">OR</div>
-
-        <button
-          onClick={handleGoogleLogin}
-          className="flex justify-center items-center py-3 rounded-sm font-semibold text-white gap-3 bg-green-500"
-        >
-          <FaGoogle></FaGoogle> Google Login
-        </button>
       </div>
     </div>
   );
