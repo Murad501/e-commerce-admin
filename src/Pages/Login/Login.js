@@ -38,7 +38,7 @@ const Login = () => {
         <h1 className="mb-5 text-center font-bold text-3xl">Login</h1>
         <div className="text-center mb-5">
           <p>admin-email: murad@gmail.com</p>
-          <p>pass: 123123</p>
+          <p>pass: Murad@12345</p>
         </div>
         {firebaseError && (
           <p className="text-center text-red-600 my-2">{firebaseError}</p>
