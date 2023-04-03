@@ -4,12 +4,15 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import UserContext from "./Context/UserContext";
+import LoadingContext from "./Context/LoadingContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <UserContext>
+      <LoadingContext>
       <App />
+      </LoadingContext>
     </UserContext>
   </React.StrictMode>
 );
