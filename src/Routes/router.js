@@ -4,6 +4,7 @@ import Page404 from "../Components/Page404";
 import Home from "../Pages/Home/Home";
 import PrivateRoute from "./PrivateRoute";
 import Login from "../Pages/Login/Login";
+import Register from "../Pages/Register/Register";
 
 export const router = createBrowserRouter([
   {
@@ -13,13 +14,20 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <PrivateRoute><Home></Home></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <Home></Home>
+          </PrivateRoute>
+        ),
       },
       {
-        path: '/login',
-        element: <Login></Login>
-      }
-
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/register",
+        element: <Register></Register>,
+      },
     ],
   },
 ]);
