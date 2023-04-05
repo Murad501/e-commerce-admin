@@ -8,6 +8,7 @@ import Register from "../Pages/Register/Register";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import Orders from "../Pages/Dashboard/Orders/Orders";
 import Products from "../Pages/Dashboard/Products/Products";
+import AddProduct from "../Pages/Dashboard/AddProduct/AddProduct";
 
 export const router = createBrowserRouter([
   {
@@ -44,7 +45,12 @@ export const router = createBrowserRouter([
       {
         path: '/dashboard/products',
         element: <Products></Products>
-      }
+      },
+      {
+        path: '/dashboard/add-product',
+        element: <AddProduct></AddProduct>
+      },
+      
     ]
   }
 ]);

@@ -18,7 +18,7 @@ const Dashboard = () => {
 
   return (
     <nav
-      className={`flex flex-row md:flex-col justify-evenly border-b md:border-b-0 md:py-5`}
+      className={`flex flex-row md:flex-col justify-evenly border-b md:border-b-0 md:py-5 gap-3`}
     >
       <NavLink title="Orders" to="/dashboard/orders">
         {({ isActive }) => (
