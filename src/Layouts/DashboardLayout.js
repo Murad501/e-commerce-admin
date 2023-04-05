@@ -19,7 +19,7 @@ const DashboardLayout = () => {
           <div
             className={` ${
               showFullMenu ? "md:w-20 lg:w-60" : "md:w-20"
-            } w-full h-full transition-width duration-1000 sticky top-0 md:left-0 z-50  md:block bg-white `}
+            } w-full h-full transition-width duration-1000 sticky top-0 md:left-0 z-40  md:block bg-white `}
           >
             <div className="hidden lg:block ">
               {showFullMenu ? (

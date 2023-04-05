@@ -44,10 +44,11 @@ const Navbar = () => {
         <>
           <li>
             <Link
-              className={`font-semibold bg-transparent px-3 py-2 hover:text-emerald-700`}
+              className={`font-semibold bg-transparent px-3 py-2 hover:text-emerald-700 flex items-center`}
               to="/dashboard"
             >
-              Dashboard
+              Cart
+              <HiShoppingCart />
             </Link>
           </li>
           <li>
@@ -55,7 +56,7 @@ const Navbar = () => {
               className={`font-semibold bg-transparent px-3 py-2 hover:text-emerald-700`}
               to="/dashboard"
             >
-              <HiShoppingCart />
+              Dashboard
             </Link>
           </li>
         </>
@@ -72,7 +73,7 @@ const Navbar = () => {
   return (
     <>
       {user ? (
-        <div className={`navbar px-0 relative md:border-b`}>
+        <div className={`navbar px-0 relative md:border-b py-5`}>
           <div className="flex-1">
             <Link to="/" className="font-semibold text-2xl text-emerald-700">
               E-Commerce
@@ -105,7 +106,7 @@ const Navbar = () => {
               {open && (
                 <ul
                   tabIndex={0}
-                  className={`absolute top-16 right-0 menu menu-compact border  dropdown-content  bg-black border-gray-800  w-52 flex-col justify-center gap-2 px-2 py-3 md:hidden`}
+                  className={`absolute top-16 right-0 menu menu-compact border  dropdown-content   w-52 flex-col justify-center gap-2 px-2 py-3 md:hidden z-50 bg-white`}
                 >
                   {menus}
                 </ul>

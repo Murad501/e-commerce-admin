@@ -5,11 +5,10 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   const { user } = useContext(userProvider)
-  console.log(user)
   return (
     <>
       {user ? (
-        <footer className="footer items-center p-4 border-t">
+        <footer className="footer sm:flex justify-between items-center p-4 border-t">
           <div className="items-center grid-flow-col">
             <p>Copyright © 2023 - All right reserved</p>
           </div>
