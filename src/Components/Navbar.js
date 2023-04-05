@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useOnClickOutside } from "usehooks-ts";
 import { userProvider } from "../Context/UserContext";
 import { loadingProvider } from "../Context/LoadingContext";
+import { HiShoppingCart } from "react-icons/hi";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -40,15 +41,26 @@ const Navbar = () => {
       </li>
 
       {user && (
-        <li>
-          <Link
-            className={`font-semibold bg-transparent px-3 py-2 hover:text-emerald-700`}
-            to="/dashboard"
-          >
-            Dashboard
-          </Link>
-        </li>
+        <>
+          <li>
+            <Link
+              className={`font-semibold bg-transparent px-3 py-2 hover:text-emerald-700`}
+              to="/dashboard"
+            >
+              Dashboard
+            </Link>
+          </li>
+          <li>
+            <Link
+              className={`font-semibold bg-transparent px-3 py-2 hover:text-emerald-700`}
+              to="/dashboard"
+            >
+              <HiShoppingCart />
+            </Link>
+          </li>
+        </>
       )}
+
       <button
         onClick={handleLogOut}
         className={`border font-semibold text-white px-3 py-2 hover:text-emerald-700 bg-emerald-700 hover:border-emerald-700 hover:bg-white transition-all duration-700`}
