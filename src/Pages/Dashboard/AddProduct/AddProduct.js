@@ -1,17 +1,22 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaRegTimesCircle } from "react-icons/fa";
-import { loadingProvider } from "../../../Context/LoadingContext";
+// import { loadingProvider } from "../../../Context/LoadingContext";
 import { userProvider } from "../../../Context/UserContext";
 import { toast } from "react-hot-toast";
+import LoadingButton from "../../../Components/LoadingButton";
+import { useNavigate } from "react-router-dom";
+import { productProvider } from "../../../Context/ProductContext";
 
 const AddProduct = () => {
   const imgbbApi = process.env.REACT_APP_imgbbApi;
-  const { setIsLoading } = useContext(loadingProvider);
   const [selectedImage, setSelectedImage] = useState(null);
   const { user } = useContext(userProvider);
+  const [isPosting, setIsPosting] = useState(false);
 
-  console.log(imgbbApi);
+  const {refetch} = useContext(productProvider)
+
+  const navigate = useNavigate()
 
   const {
     register,
@@ -20,7 +25,7 @@ const AddProduct = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    setIsLoading(true);
+    setIsPosting(true);
     const image = data.profileImage[0];
     const formData = new FormData();
     formData.append("image", image);
@@ -30,7 +35,6 @@ const AddProduct = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
         if (result.data.url) {
           const imgUrl = result.data.url;
           const product = {
@@ -43,8 +47,23 @@ const AddProduct = () => {
             date: new Date(),
           };
 
-          toast.success('image upload successfully')
+          fetch("http://localhost:5000/product", {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(product),
+          })
+            .then((res) => res.json())
+            .then(() => {
+              refetch()
+              navigate('/dashboard/products')
+            })
+            .catch((err) => console.log(err));
+
+          toast.success("image upload successfully");
           console.log(product);
+          setIsPosting(false);
         }
       });
   };
@@ -65,7 +84,7 @@ const AddProduct = () => {
   }
 
   return (
-    <div className="py-10">
+    <div>
       <h1 className={`text-4xl font-bold text-center mb-10`}>Add a Product</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl mx-auto">
         <div className="mb-4 md:col-span-4">
@@ -167,12 +186,16 @@ const AddProduct = () => {
           </div>
         </div>
         <div className="mb-6 flex justify-end items-center">
-          <button
-            type="submit"
-            className={`font-semibold px-4 py-2 rounded-none mt-5 bg-emerald-700 text-white`}
-          >
-            Add Product
-          </button>
+          {isPosting ? (
+            <LoadingButton btnStyle={"mt-5"}></LoadingButton>
+          ) : (
+            <button
+              type="submit"
+              className={`font-semibold px-4 py-2 rounded-none mt-5 bg-emerald-700 text-white`}
+            >
+              Add Product
+            </button>
+          )}
         </div>
       </form>
     </div>

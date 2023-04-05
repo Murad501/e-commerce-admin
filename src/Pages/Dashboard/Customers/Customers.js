@@ -1,15 +1,19 @@
-import React, { useContext } from "react";
-import { productProvider } from "../../../Context/ProductContext";
+import React from "react";
+import { useQuery } from "react-query";
 
-const Products = () => {
-  const {products} = useContext(productProvider)
+const Customers = () => {
+  const { data: customers = [] } = useQuery({
+    queryKey: ["customers"],
+    queryFn: () =>
+      fetch("http://localhost:5000/customers").then((res) => res.json()),
+  });
 
   return (
     <>
-      {products.length ? (
+      {customers.length ? (
         <div>
           <h1 className={`text-4xl font-bold text-center mb-10`}>
-            Product List
+            Customer List
           </h1>
           <div className="overflow-x-auto">
             <table className={`table w-full border `}>
@@ -23,32 +27,43 @@ const Products = () => {
                     Name
                   </th>
                   <th className="bg-transparent font-bold text-[14px] text-center  w-1/3">
-                    Seller
+                    Email
                   </th>
                   <th className="bg-transparent font-bold text-[14px] text-center ">
-                    Quantity
+                    Role
                   </th>
-
                   <th className="bg-transparent font-bold text-[14px] text-center">
                     Price
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {products.map((product, idx) => (
-                  <tr key={product._id} className={`border-b `}>
+                {customers.map((customer, idx) => (
+                  <tr key={customer._id} className={`border-b `}>
                     <th className="bg-transparent text-center border-0">
                       {idx + 1}
                     </th>
                     <td className="bg-transparent text-center border-0">
-                      {product.name}
+                      {customer.name}
                     </td>
                     <td className="bg-transparent text-center border-0">
-                      {product.postedBy}
+                      {customer.email}
                     </td>
-                    <td className="bg-transparent text-center border-0">{product?.quantity}</td>
+                    <td className="bg-transparent text-center border-0">
+                      {customer.role}
+                    </td>
+
                     <td className="bg-transparent flex gap-5 justify-center items-center border-0">
-                      <p className="font-semibold">${product?.price}</p>
+                      <button
+                        className={`px-3 py-2 border hover:text-emerald-700 hover:border-emerald-700`}
+                      >
+                        Make Admin
+                      </button>
+                      <button
+                        className={`px-3 py-2 border  hover:text-emerald-700 hover:border-emerald-700`}
+                      >
+                        Remove
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -58,11 +73,11 @@ const Products = () => {
         </div>
       ) : (
         <div className="flex justify-center items-center h-full">
-          <p className="text-xl">product list is empty.</p>
+          <p className="text-xl">customer list is empty.</p>
         </div>
       )}
     </>
   );
 };
 
-export default Products;
+export default Customers;

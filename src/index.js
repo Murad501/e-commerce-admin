@@ -7,16 +7,26 @@ import UserContext from "./Context/UserContext";
 import LoadingContext from "./Context/LoadingContext";
 import DashboardContext from "./Context/DashboardContext";
 
+import { QueryClient, QueryClientProvider } from "react-query";
+import ProductContext from "./Context/ProductContext";
+
+// Create a client
+const queryClient = new QueryClient();
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <UserContext>
-      <LoadingContext>
-        <DashboardContext>
-          <App />
-        </DashboardContext>
-      </LoadingContext>
-    </UserContext>
+    <QueryClientProvider client={queryClient}>
+      <UserContext>
+        <LoadingContext>
+          <DashboardContext>
+            <ProductContext>
+              <App />
+            </ProductContext>
+          </DashboardContext>
+        </LoadingContext>
+      </UserContext>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 
