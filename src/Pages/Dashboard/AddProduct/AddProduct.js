@@ -4,14 +4,14 @@ import { FaRegTimesCircle } from "react-icons/fa";
 import { loadingProvider } from "../../../Context/LoadingContext";
 import { userProvider } from "../../../Context/UserContext";
 import { toast } from "react-hot-toast";
-// import { productProvider } from "../../../Context/ProductContext";
 
 const AddProduct = () => {
-  //   const { refetch } = useContext(productProvider);
   const imgbbApi = process.env.REACT_APP_imgbbApi;
   const { setIsLoading } = useContext(loadingProvider);
   const [selectedImage, setSelectedImage] = useState(null);
   const { user } = useContext(userProvider);
+
+  console.log(imgbbApi);
 
   const {
     register,
@@ -30,6 +30,7 @@ const AddProduct = () => {
     })
       .then((res) => res.json())
       .then((result) => {
+        console.log(result);
         if (result.data.url) {
           const imgUrl = result.data.url;
           const product = {
@@ -168,7 +169,7 @@ const AddProduct = () => {
         <div className="mb-6 flex justify-end items-center">
           <button
             type="submit"
-            className={`font-semibold px-4 py-2 rounded-none mt-5`}
+            className={`font-semibold px-4 py-2 rounded-none mt-5 bg-emerald-700 text-white`}
           >
             Add Product
           </button>
