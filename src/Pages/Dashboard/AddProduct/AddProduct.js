@@ -1,10 +1,9 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "react-hot-toast";
 import { FaRegTimesCircle } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 import { loadingProvider } from "../../../Context/LoadingContext";
 import { userProvider } from "../../../Context/UserContext";
+import { toast } from "react-hot-toast";
 // import { productProvider } from "../../../Context/ProductContext";
 
 const AddProduct = () => {
@@ -13,7 +12,6 @@ const AddProduct = () => {
   const { setIsLoading } = useContext(loadingProvider);
   const [selectedImage, setSelectedImage] = useState(null);
   const { user } = useContext(userProvider);
-  const navigate = useNavigate();
 
   const {
     register,
@@ -37,33 +35,15 @@ const AddProduct = () => {
           const product = {
             postedBy: user.email,
             picture: imgUrl,
-            available: true,
-            advertised: false,
             price: data.price,
-            buyingPrice: data.buyingPrice,
-            location: data.location,
-            condition: data.condition,
-            usesYears: data.usesYears,
+            quantity: data.quantity,
             name: data.name,
             description: data.description,
             date: new Date(),
           };
 
-          fetch(`https://baby-shop-server.vercel.app/product/${user.email}`, {
-            method: "POST",
-            headers: {
-              authorization: `Bearer ${localStorage.getItem("token")}`,
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(product),
-          })
-            .then((res) => res.json())
-            .then(() => {
-              navigate("/dashboard/my-products");
-              //   refetch();
-              setIsLoading(false);
-              toast.success("Product added successfully");
-            });
+          toast.success('image upload successfully')
+          console.log(product);
         }
       });
   };
