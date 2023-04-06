@@ -11,6 +11,7 @@ import Products from "../Pages/Dashboard/Products/Products";
 import AddProduct from "../Pages/Dashboard/AddProduct/AddProduct";
 import Customers from "../Pages/Dashboard/Customers/Customers";
 import AddCustomer from "../Pages/Dashboard/AddCustomer/AddCustomer";
+import Shop from "../Pages/Shop/Shop";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
         path: "/register",
         element: <Register></Register>,
       },
+      {
+        path: '/shop',
+        element: <Shop></Shop>
+      }
     ],
   },
   {

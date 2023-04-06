@@ -42,13 +42,13 @@ const Navbar = () => {
 
       {user && (
         <>
+          
           <li>
             <Link
-              className={`font-semibold bg-transparent px-3 py-2 hover:text-emerald-700 flex items-center`}
-              to="/dashboard"
+              className={`font-semibold bg-transparent px-3 py-2 hover:text-emerald-700`}
+              to="/shop"
             >
-              Cart
-              <HiShoppingCart />
+              Shop
             </Link>
           </li>
           <li>
@@ -57,6 +57,15 @@ const Navbar = () => {
               to="/dashboard"
             >
               Dashboard
+            </Link>
+          </li>
+          <li>
+            <Link
+              className={`font-semibold bg-transparent px-3 py-2 hover:text-emerald-700 flex items-center`}
+              to="/dashboard"
+            >
+              Cart
+              <HiShoppingCart />
             </Link>
           </li>
         </>
