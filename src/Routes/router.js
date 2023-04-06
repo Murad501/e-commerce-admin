@@ -12,6 +12,9 @@ import AddProduct from "../Pages/Dashboard/AddProduct/AddProduct";
 import Customers from "../Pages/Dashboard/Customers/Customers";
 import AddCustomer from "../Pages/Dashboard/AddCustomer/AddCustomer";
 import Shop from "../Pages/Shop/Shop";
+import ProductDetails from "../Pages/ProductDetails/ProductDetails";
+import Cart from "../Pages/Cart/Cart";
+import PaymentDetails from "../Pages/PaymentDetails/PaymentDetails";
 
 export const router = createBrowserRouter([
   {
@@ -36,9 +39,21 @@ export const router = createBrowserRouter([
         element: <Register></Register>,
       },
       {
-        path: '/shop',
-        element: <Shop></Shop>
-      }
+        path: "/shop",
+        element: <Shop></Shop>,
+      },
+      {
+        path: "/cart",
+        element: <Cart></Cart>,
+      },
+      {
+        path: "/products/:id",
+        element: <ProductDetails></ProductDetails>,
+      },
+      {
+        path: "/checkout/:id",
+        element: <PaymentDetails></PaymentDetails>,
+      },
     ],
   },
   {

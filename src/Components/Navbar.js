@@ -62,7 +62,7 @@ const Navbar = () => {
           <li>
             <Link
               className={`font-semibold bg-transparent px-3 py-2 hover:text-emerald-700 flex items-center`}
-              to="/dashboard"
+              to="/cart"
             >
               Cart
               <HiShoppingCart />

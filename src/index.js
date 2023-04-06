@@ -9,6 +9,9 @@ import DashboardContext from "./Context/DashboardContext";
 
 import { QueryClient, QueryClientProvider } from "react-query";
 import ProductContext from "./Context/ProductContext";
+import CartContext from "./Context/CartContext";
+import PaymentDetailsContext from "./Context/PaymentDetailsContext";
+import DetailsCartContext from "./Context/DetailsCartContext";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -21,7 +24,13 @@ root.render(
         <LoadingContext>
           <DashboardContext>
             <ProductContext>
-              <App />
+              <CartContext>
+                <DetailsCartContext>
+                  <PaymentDetailsContext>
+                    <App />
+                  </PaymentDetailsContext>
+                </DetailsCartContext>
+              </CartContext>
             </ProductContext>
           </DashboardContext>
         </LoadingContext>
