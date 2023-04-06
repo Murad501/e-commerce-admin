@@ -1,30 +1,18 @@
 import React, { useContext, useState } from "react";
-import { userProvider } from "../../Context/UserContext";
-import { Link, useParams } from "react-router-dom";
-// import { productProvider } from "../../Context/ProductContext";
-// import { FaCheckCircle } from "react-icons/fa";
 import { toast } from "react-hot-toast";
-// import { BsFillBagCheckFill } from "react-icons/bs";
 import { paymentDetailsProvider } from "../../Context/PaymentDetailsContext";
-import CheckoutForm from "../../Components/CheckoutForm";
-// import { productProvider } from "../../Context/ProductContext";
-import { cartProvider } from "../../Context/CartContext";
-// import CheckoutForm from "../CheckoutForm/CheckoutForm";
+import { userProvider } from "../../Context/UserContext";
+import CheckoutForm from "./CheckoutForm";
+import { detailsCartProvider } from "../../Context/DetailsCartContext";
+import { Link } from "react-router-dom";
 
-const PaymentDetails = () => {
+const Checkout = () => {
   const { user } = useContext(userProvider);
-  const { id } = useParams();
-  const { products } = useContext(cartProvider);
-  const product = products.find((product) => product?._id === id);
-  //   const [transitionId, setTransitionId] = useState("");
-  //   const [isSold, setIsSold] = useState(!product?.available);
+  const { myCart } = useContext(detailsCartProvider);
   const { paymentDetails: previousPaymentDetails } = useContext(
     paymentDetailsProvider
   );
 
-  const { products: cartProducts } = useContext(cartProvider);
-  const available = cartProducts.find((pdct) => pdct._id === id);
-  console.log(available);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -60,7 +48,7 @@ const PaymentDetails = () => {
 
   return (
     <>
-      {available ? (
+      {myCart.length ? (
         <div className="w-full px-5">
           <div className="my-10">
             <div className="text-center mb-10">
@@ -189,18 +177,22 @@ const PaymentDetails = () => {
                   </div>
                 </form>
               </div>
-              <div className="max-w-5xl mx-auto w-full">
-                <div>
-                  <h4 className={`text-xl font-bold mb-5`}>Order summary</h4>
-                  <CheckoutForm product={product}></CheckoutForm>
+              {myCart.length ? (
+                <div className="max-w-5xl mx-auto w-full">
+                  <div>
+                    <h4 className={`text-xl font-bold mb-5`}>Order summary</h4>
+                    <CheckoutForm></CheckoutForm>
+                  </div>
                 </div>
-              </div>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>
       ) : (
         <h3 className="text-xl">
-          This Product is not available into your cart.{" "}
+          Your Cart is Empty.{" "}
           <Link to="/shop" className="font-semibold text-emerald-700">
             Shop Now
           </Link>
@@ -210,4 +202,4 @@ const PaymentDetails = () => {
   );
 };
 
-export default PaymentDetails;
+export default Checkout;

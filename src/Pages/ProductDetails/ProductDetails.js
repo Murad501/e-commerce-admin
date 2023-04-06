@@ -30,7 +30,7 @@ const ProductDetails = () => {
   } else {
     setIsLoading(false);
   }
-  const { picture, price, name, description, _id, postedBy, quantity } =
+  const { picture, price, name, description, _id, quantity } =
     product;
 
   const quantityNumber = parseInt(quantity);
@@ -116,14 +116,6 @@ const ProductDetails = () => {
           </button>
           <p className="text-lg mt-5">{description}</p>
         </div>
-      </div>
-      <div className="flex justify-center items-center my-10">
-        <button
-          disabled={postedBy === user?.email}
-          className={`font-semibold px-7 py-3 rounded-none mt-5 bg-emerald-700 text-white`}
-        >
-          Checkout
-        </button>
       </div>
     </div>
   );

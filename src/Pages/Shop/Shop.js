@@ -1,9 +1,12 @@
 import React, { useContext } from 'react';
 import { productProvider } from '../../Context/ProductContext';
 import ProductCard from '../../Components/ProductCard/ProductCard';
+import { cartProvider } from '../../Context/CartContext';
 
 const Shop = () => {
     const {products} = useContext(productProvider)
+    const {refetch} = useContext(cartProvider)
+    refetch()
     return (
         <div className='mb-10'>
             <h3 className='font-semibold text-4xl text-center mb-10 mt-5'>Shop</h3>

@@ -15,6 +15,7 @@ import Shop from "../Pages/Shop/Shop";
 import ProductDetails from "../Pages/ProductDetails/ProductDetails";
 import Cart from "../Pages/Cart/Cart";
 import PaymentDetails from "../Pages/PaymentDetails/PaymentDetails";
+import Checkout from "../Pages/Checkout/Checkout";
 
 export const router = createBrowserRouter([
   {
@@ -70,6 +71,10 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: '/checkout',
+        element: <Checkout></Checkout>
+      }
     ],
   },
   {

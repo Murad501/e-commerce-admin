@@ -1,33 +1,33 @@
 import React, { useContext, useState } from "react";
-import LoadingButton from "./LoadingButton";
-import { detailsCartProvider } from "../Context/DetailsCartContext";
-import { loadingProvider } from "../Context/LoadingContext";
-import { useNavigate } from "react-router-dom";
+import { detailsCartProvider } from "../../Context/DetailsCartContext";
+import { loadingProvider } from "../../Context/LoadingContext";
+import LoadingButton from "../../Components/LoadingButton";
+import { userProvider } from "../../Context/UserContext";
 
-const CheckoutForm = ({ product }) => {
+const CheckoutForm = () => {
   const [processing, setProcessing] = useState(false);
   const { myCart, isLoading, refetch } = useContext(detailsCartProvider);
   const { setIsLoading } = useContext(loadingProvider);
-  const navigate = useNavigate()
+  const { user } = useContext(userProvider);
 
+  refetch();
   if (isLoading) {
     return setIsLoading(true);
   } else {
     setIsLoading(false);
   }
-  const currentProduct = myCart.find((pdct) => pdct?._id === product?._id);
-
-  const price = parseInt(currentProduct?.price) * (currentProduct?.quantity);
-  const VAT = parseInt(price * 0.08);
-  const total = price + VAT + 5;
-
+  const totalPrice = myCart.reduce(function (prev, cur) {
+    return prev + parseInt(cur.price) * cur?.quantity;
+  }, 0);
+  const VAT = parseInt(totalPrice * 0.08);
+  const total = totalPrice + 5 + parseInt(VAT);
 
   const handlePayment = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     setProcessing(true);
 
     setTimeout(() => {
-      fetch(`http://localhost:5000/handle-checkout-by/${currentProduct?._id}`, {
+      fetch(`http://localhost:5000/handle-checkout/${user?.email}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
@@ -35,7 +35,6 @@ const CheckoutForm = ({ product }) => {
           console.log(result);
           refetch();
           setProcessing(false);
-          navigate('/cart')
         });
     }, 2000);
   };
@@ -45,10 +44,18 @@ const CheckoutForm = ({ product }) => {
       <form onSubmit={handlePayment}>
         <div className="my-10">
           <div className=" border-b">
-            <div className="flex justify-between items-center mb-5">
-              <h4 className="text-lg">Subtotal</h4>
-              <p className="font-semibold">${price}</p>
-            </div>
+            {myCart.map((product) => (
+              <div>
+                <div className="flex justify-between items-center mb-5">
+                  <h4 className="text-lg">{product?.name}</h4>
+                  <p className="font-semibold">
+                    ${product?.price} * {product?.quantity} ={" "}
+                    {product?.price * product?.quantity}
+                  </p>
+                </div>
+              </div>
+            ))}
+
             <div className="flex justify-between items-center mb-5">
               <h4 className="text-lg">VAT (8%)</h4>
               <p className="font-semibold">${VAT}</p>
@@ -74,7 +81,7 @@ const CheckoutForm = ({ product }) => {
           </span>
         ) : (
           <span className="flex justify-end">
-            <LoadingButton btnStyle={" w-[200px] py-3"}></LoadingButton>
+            <LoadingButton btnStyle={"w-[200px] py-3"}></LoadingButton>
           </span>
         )}
       </form>

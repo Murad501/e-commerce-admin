@@ -29,7 +29,7 @@ const ProductCard = ({ product, refetch }) => {
       body: JSON.stringify({ quantity: productQuantity + 1 }),
     })
       .then((res) => res.json())
-      .then(() => {});
+      .then(() => cartRefetch());
   };
   const handleDecreaseQuantity = (id) => {
     if (productQuantity === 1) {
@@ -44,7 +44,7 @@ const ProductCard = ({ product, refetch }) => {
       body: JSON.stringify({ quantity: productQuantity - 1 }),
     })
       .then((res) => res.json())
-      .then(() => {});
+      .then(() => cartRefetch());
   };
 
   const handleDeleteCartProduct = (id) => {
