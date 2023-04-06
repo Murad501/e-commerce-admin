@@ -40,19 +40,35 @@ export const router = createBrowserRouter([
       },
       {
         path: "/shop",
-        element: <Shop></Shop>,
+        element: (
+          <PrivateRoute>
+            <Shop></Shop>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/cart",
-        element: <Cart></Cart>,
+        element: (
+          <PrivateRoute>
+            <Cart></Cart>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/products/:id",
-        element: <ProductDetails></ProductDetails>,
+        element: (
+          <PrivateRoute>
+            <ProductDetails></ProductDetails>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/checkout/:id",
-        element: <PaymentDetails></PaymentDetails>,
+        element: (
+          <PrivateRoute>
+            <PaymentDetails></PaymentDetails>
+          </PrivateRoute>
+        ),
       },
     ],
   },

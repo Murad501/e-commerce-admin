@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { userProvider } from "../../Context/UserContext";
-import {  useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 // import { productProvider } from "../../Context/ProductContext";
 // import { FaCheckCircle } from "react-icons/fa";
 import { toast } from "react-hot-toast";
@@ -13,12 +13,14 @@ import { cartProvider } from "../../Context/CartContext";
 
 const PaymentDetails = () => {
   const { user } = useContext(userProvider);
-    const { id } = useParams();
-    const { products } = useContext(cartProvider);
-    const product = products.find((product) => product._id === id);
+  const { id } = useParams();
+  const { products } = useContext(cartProvider);
+  const product = products.find((product) => product?._id === id);
   //   const [transitionId, setTransitionId] = useState("");
   //   const [isSold, setIsSold] = useState(!product?.available);
-  const { paymentDetails } = useContext(paymentDetailsProvider);
+  const { paymentDetails: previousPaymentDetails } = useContext(
+    paymentDetailsProvider
+  );
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -33,7 +35,7 @@ const PaymentDetails = () => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+    setFormData({ ...previousPaymentDetails, [name]: value });
   };
 
   const handleAddPaymentDetails = (e) => {
@@ -73,7 +75,7 @@ const PaymentDetails = () => {
                         onChange={handleInputChange}
                         placeholder="First name"
                         type="text"
-                        defaultValue={paymentDetails?.firstName}
+                        defaultValue={previousPaymentDetails?.firstName}
                         name="firstName"
                         id="firstName"
                         className={`border-b bg-transparent p-2 w-full rounded-sm focus:outline-none `}
@@ -83,7 +85,7 @@ const PaymentDetails = () => {
                     <div className="mb-10">
                       <input
                         onChange={handleInputChange}
-                        defaultValue={paymentDetails?.lastName}
+                        defaultValue={previousPaymentDetails?.lastName}
                         placeholder="Last name"
                         type="text"
                         name="lastName"
@@ -96,7 +98,7 @@ const PaymentDetails = () => {
                       <input
                         onChange={handleInputChange}
                         placeholder="Email"
-                        defaultValue={paymentDetails?.email}
+                        defaultValue={previousPaymentDetails?.email}
                         type="email"
                         name="email"
                         id="email"
@@ -108,7 +110,7 @@ const PaymentDetails = () => {
                       <input
                         onChange={handleInputChange}
                         placeholder="Phone number"
-                        defaultValue={paymentDetails?.number}
+                        defaultValue={previousPaymentDetails?.number}
                         type="number"
                         name="number"
                         id="number"
@@ -125,7 +127,7 @@ const PaymentDetails = () => {
                       <input
                         onChange={handleInputChange}
                         placeholder="Country"
-                        defaultValue={paymentDetails?.country}
+                        defaultValue={previousPaymentDetails?.country}
                         type="text"
                         name="country"
                         id="country"
@@ -137,7 +139,7 @@ const PaymentDetails = () => {
                       <input
                         onChange={handleInputChange}
                         placeholder="State"
-                        defaultValue={paymentDetails?.state}
+                        defaultValue={previousPaymentDetails?.state}
                         type="text"
                         name="state"
                         id="state"
@@ -149,7 +151,7 @@ const PaymentDetails = () => {
                       <input
                         onChange={handleInputChange}
                         placeholder="Zip code"
-                        defaultValue={paymentDetails?.zip}
+                        defaultValue={previousPaymentDetails?.zip}
                         type="number"
                         name="zip"
                         id="zip"
@@ -160,7 +162,7 @@ const PaymentDetails = () => {
                     <div className="mb-10">
                       <input
                         onChange={handleInputChange}
-                        defaultValue={paymentDetails?.landmark}
+                        defaultValue={previousPaymentDetails?.landmark}
                         id="landmark"
                         name="landmark"
                         type="text"
@@ -203,7 +205,7 @@ const PaymentDetails = () => {
                       onChange={handleInputChange}
                       placeholder="First name"
                       type="text"
-                      defaultValue={paymentDetails?.firstName}
+                      defaultValue={previousPaymentDetails?.firstName}
                       name="firstName"
                       id="firstName"
                       className={`border-b bg-transparent p-2 w-full rounded-sm focus:outline-none `}
@@ -213,7 +215,7 @@ const PaymentDetails = () => {
                   <div className="mb-10">
                     <input
                       onChange={handleInputChange}
-                      defaultValue={paymentDetails?.lastName}
+                      defaultValue={previousPaymentDetails?.lastName}
                       placeholder="Last name"
                       type="text"
                       name="lastName"
@@ -226,7 +228,7 @@ const PaymentDetails = () => {
                     <input
                       onChange={handleInputChange}
                       placeholder="Email"
-                      defaultValue={paymentDetails?.email}
+                      defaultValue={previousPaymentDetails?.email}
                       type="email"
                       name="email"
                       id="email"
@@ -238,7 +240,7 @@ const PaymentDetails = () => {
                     <input
                       onChange={handleInputChange}
                       placeholder="Phone number"
-                      defaultValue={paymentDetails?.number}
+                      defaultValue={previousPaymentDetails?.number}
                       type="number"
                       name="number"
                       id="number"
@@ -253,7 +255,7 @@ const PaymentDetails = () => {
                     <input
                       onChange={handleInputChange}
                       placeholder="Country"
-                      defaultValue={paymentDetails?.country}
+                      defaultValue={previousPaymentDetails?.country}
                       type="text"
                       name="country"
                       id="country"
@@ -265,7 +267,7 @@ const PaymentDetails = () => {
                     <input
                       onChange={handleInputChange}
                       placeholder="State"
-                      defaultValue={paymentDetails?.state}
+                      defaultValue={previousPaymentDetails?.state}
                       type="text"
                       name="state"
                       id="state"
@@ -277,7 +279,7 @@ const PaymentDetails = () => {
                     <input
                       onChange={handleInputChange}
                       placeholder="Zip code"
-                      defaultValue={paymentDetails?.zip}
+                      defaultValue={previousPaymentDetails?.zip}
                       type="number"
                       name="zip"
                       id="zip"
@@ -288,7 +290,7 @@ const PaymentDetails = () => {
                   <div className="mb-10">
                     <input
                       onChange={handleInputChange}
-                      defaultValue={paymentDetails?.landmark}
+                      defaultValue={previousPaymentDetails?.landmark}
                       id="landmark"
                       name="landmark"
                       type="text"

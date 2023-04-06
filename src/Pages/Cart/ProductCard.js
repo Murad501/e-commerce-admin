@@ -52,8 +52,7 @@ const ProductCard = ({ product, refetch }) => {
       method: "DELETE",
     })
       .then((res) => res.json())
-      .then((result) => {
-        console.log(result);
+      .then(() => {
         toast.success("product delete successfully");
         refetch();
         cartRefetch();

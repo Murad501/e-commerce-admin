@@ -10,6 +10,7 @@ const DetailsCartContext = ({ children }) => {
   const {
     data: myCartProducts = [],
     refetch,
+    isLoading
   } = useQuery({
     queryKey: ["my-cart", user?.email],
     queryFn: () =>
@@ -35,6 +36,7 @@ const DetailsCartContext = ({ children }) => {
   const value = {
     myCart,
     refetch,
+    isLoading
   };
   return (
     <detailsCartProvider.Provider value={value}>{children}</detailsCartProvider.Provider>

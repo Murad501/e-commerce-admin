@@ -4,7 +4,12 @@ import { Link } from "react-router-dom";
 import { detailsCartProvider } from "../../Context/DetailsCartContext";
 
 const Cart = () => {
-  const {myCart, refetch} = useContext(detailsCartProvider)
+  const {
+    myCart,
+    refetch,
+  } = useContext(detailsCartProvider);
+
+
 
   return (
     <>

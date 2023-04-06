@@ -22,7 +22,6 @@ const AddCustomer = () => {
       email: data.email,
       role: data.role,
     };
-    console.log(customer);
     setIsPosting(false)
     fetch("http://localhost:5000/customer", {
       method: "POST",
@@ -33,7 +32,6 @@ const AddCustomer = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
         toast.success("customer added successfully");
         setIsPosting(false);
         navigate("/dashboard/customers");

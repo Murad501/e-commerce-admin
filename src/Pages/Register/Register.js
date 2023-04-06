@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { userProvider } from "../../Context/UserContext";
+import { saveUser } from "../../Shared/saveUser";
 
 const Register = () => {
   const { createUser } = useContext(userProvider);
@@ -33,6 +34,12 @@ const Register = () => {
     }
     createUser(data.email, data.password)
       .then((result) => {
+        const user = {
+          name: data.name,
+          email: data.email,
+          role: "buyer",
+        };
+        saveUser(user);
         const currentUser = result.user;
         updateProfile(currentUser, {
           displayName: data.name,
@@ -55,9 +62,7 @@ const Register = () => {
           <p className="text-center text-red-600 my-2">{firebaseError}</p>
         )}
         {passwordWarning && (
-          <p className="text-center text-yellow-500 my-2">
-            {passwordWarning}
-          </p>
+          <p className="text-center text-yellow-500 my-2">{passwordWarning}</p>
         )}
         <form onSubmit={handleSubmit(handleRegister)}>
           <div className="form-control mb-3">
