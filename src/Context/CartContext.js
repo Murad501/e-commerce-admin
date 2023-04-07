@@ -10,7 +10,7 @@ const CartContext = ({ children }) => {
   } = useQuery({
     queryKey: ["cart-products"],
     queryFn: () =>
-      fetch(`http://localhost:5000/cart-products`).then((res) => res.json()),
+      fetch(`https://e-commerce-admin-server-tawny.vercel.app/cart-products`).then((res) => res.json()),
   });
   const value = {
     products,

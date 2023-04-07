@@ -12,7 +12,7 @@ const OrderContext = ({ children }) => {
   } = useQuery({
     queryKey: ["orders"],
     queryFn: () =>
-      fetch(`http://localhost:5000/orders`).then((res) => res.json()),
+      fetch(`https://e-commerce-admin-server-tawny.vercel.app/orders`).then((res) => res.json()),
   });
 
   const value = {

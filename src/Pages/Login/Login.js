@@ -20,7 +20,7 @@ const Login = () => {
   const handleLogin = (data) => {
     loginUser(data.email, data.password)
       .then(() => {
-        fetch("http://localhost:5000/jwt", {
+        fetch("https://e-commerce-admin-server-tawny.vercel.app/jwt", {
           method: "POST",
           headers: {
             "content-type": "application/json",

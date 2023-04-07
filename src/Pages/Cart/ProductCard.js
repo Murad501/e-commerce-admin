@@ -21,7 +21,7 @@ const ProductCard = ({ product, refetch }) => {
       return;
     }
     setProductQuantity(productQuantity + 1);
-    fetch(`http://localhost:5000/update-quantity/${id}`, {
+    fetch(`https://e-commerce-admin-server-tawny.vercel.app/update-quantity/${id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -38,7 +38,7 @@ const ProductCard = ({ product, refetch }) => {
       return;
     }
     setProductQuantity(productQuantity - 1);
-    fetch(`http://localhost:5000/update-quantity/${id}`, {
+    fetch(`https://e-commerce-admin-server-tawny.vercel.app/update-quantity/${id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -52,7 +52,7 @@ const ProductCard = ({ product, refetch }) => {
   };
 
   const handleDeleteCartProduct = (id) => {
-    fetch(`http://localhost:5000/delete-cart-item/${id}`, {
+    fetch(`https://e-commerce-admin-server-tawny.vercel.app/delete-cart-item/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

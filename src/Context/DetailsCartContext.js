@@ -14,10 +14,10 @@ const DetailsCartContext = ({ children }) => {
   } = useQuery({
     queryKey: ["my-cart"],
     queryFn: () =>
-      fetch(`http://localhost:5000/my-cart/${user?.email}`, {
+      fetch(`https://e-commerce-admin-server-tawny.vercel.app/my-cart/${user?.email}`, {
         headers: {
           "content-type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("token")}`,
+          
         },
       }).then((res) => res.json()),
   });
@@ -26,7 +26,6 @@ const DetailsCartContext = ({ children }) => {
     return
   }
 
-  console.log(products);
 
   const myCart = products?.filter((product) =>
       myCartProducts?.some(

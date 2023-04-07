@@ -24,7 +24,7 @@ const AddCustomer = () => {
     };
     
     setIsPosting(false)
-    fetch(`http://localhost:5000/customer/`, {
+    fetch(`https://e-commerce-admin-server-tawny.vercel.app/customer/`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

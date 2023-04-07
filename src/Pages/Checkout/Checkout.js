@@ -31,7 +31,7 @@ const Checkout = () => {
 
   const handleAddPaymentDetails = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:5000/save-payment-details/${user?.email}`, {
+    fetch(`https://e-commerce-admin-server-tawny.vercel.app/save-payment-details/${user?.email}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",

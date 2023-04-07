@@ -41,7 +41,7 @@ const Register = () => {
           email: data.email,
           role: "user",
         };
-        fetch("http://localhost:5000/jwt", {
+        fetch("https://e-commerce-admin-server-tawny.vercel.app/jwt", {
           method: "POST",
           headers: {
             "content-type": "application/json",

@@ -22,7 +22,7 @@ const FeaturedProducts = () => {
       quantity: 1,
       user: user?.email,
     };
-    fetch(`http://localhost:5000/cart/`, {
+    fetch(`https://e-commerce-admin-server-tawny.vercel.app/cart/`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

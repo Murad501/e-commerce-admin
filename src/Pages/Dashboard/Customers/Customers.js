@@ -7,7 +7,7 @@ const Customers = () => {
   const { data: customers = [] } = useQuery({
     queryKey: ["customers", user?.email],
     queryFn: () =>
-      fetch(`http://localhost:5000/customers`).then((res) => res.json()),
+      fetch(`https://e-commerce-admin-server-tawny.vercel.app/customers`).then((res) => res.json()),
   });
 
   return (
