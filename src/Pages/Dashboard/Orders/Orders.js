@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import { orderProvider } from "../../../Context/OrderContext";
 
 const Orders = () => {
-  const orders = [1, 2, 3, 4, 5, 6, 7, 8, 8, 3, 4, 5, 6];
+  const { orders } = useContext(orderProvider);
   return (
     <>
       {orders.length ? (
@@ -22,7 +23,7 @@ const Orders = () => {
                     Customer
                   </th>
                   <th className="bg-transparent font-bold text-[14px] text-center w-1/3">
-                    Address
+                    Price
                   </th>
                   <th className="bg-transparent font-bold text-[14px] text-center ">
                     Quantity
@@ -40,24 +41,22 @@ const Orders = () => {
                       {idx + 1}
                     </th>
                     <td className="bg-transparent text-center border-0">
-                      {order.productName}
+                      {order?.name}
                     </td>
                     <td className="bg-transparent text-center border-0">
-                      {order.transitionId}
+                      {order?.buyer}
                     </td>
                     <td className="bg-transparent text-center border-0">
-                      {order.transitionId}
+                      ${order?.price}
                     </td>
                     <td className="bg-transparent text-center border-0">
-                      1
+                      {order?.quantity}
                     </td>
                     <td className="bg-transparent flex gap-5 justify-center items-center border-0">
                       <p
-                        className={`${
-                          idx % 2 === 0 ? "bg-emerald-100" : "bg-red-100"
-                        } font-semibold px-1`}
+                        className={`bg-emerald-50 font-semibold px-3 rounded-sm`}
                       >
-                        {idx % 2 === 0 ? "Completed" : "Cancel"}
+                        Paid
                       </p>
                     </td>
                   </tr>
@@ -68,9 +67,7 @@ const Orders = () => {
         </div>
       ) : (
         <div className="flex justify-center items-center h-full">
-          <p className="text-xl">
-            Order list is empty.
-          </p>
+          <p className="text-xl">Order list is empty.</p>
         </div>
       )}
     </>

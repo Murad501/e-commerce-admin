@@ -10,36 +10,46 @@ const DetailsCartContext = ({ children }) => {
   const {
     data: myCartProducts = [],
     refetch,
-    isLoading
+    isLoading,
   } = useQuery({
-    queryKey: ["my-cart", user?.email],
+    queryKey: ["my-cart"],
     queryFn: () =>
-      fetch(`http://localhost:5000/my-cart/${user?.email}`).then((res) =>
-        res.json()
-      ),
+      fetch(`http://localhost:5000/my-cart/${user?.email}`, {
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }).then((res) => res.json()),
   });
 
-  const myCart = products
-    .filter((product) =>
-      myCartProducts.some(
+  if(products.message){
+    return
+  }
+
+  console.log(products);
+
+  const myCart = products?.filter((product) =>
+      myCartProducts?.some(
         (cartProduct) => cartProduct.productId === product._id
       )
     )
     .map((item) => ({
       ...item,
-      quantity: myCartProducts.find((item2) => item2.productId === item._id)
+      quantity: myCartProducts?.find((item2) => item2.productId === item._id)
         .quantity,
-      _id: myCartProducts.find((item2) => item2.productId === item._id)._id,
-      productId: myCartProducts.find((item2) => item2.productId === item._id)
+      _id: myCartProducts?.find((item2) => item2.productId === item._id)._id,
+      productId: myCartProducts?.find((item2) => item2.productId === item._id)
         .productId,
     }));
   const value = {
     myCart,
     refetch,
-    isLoading
+    isLoading,
   };
   return (
-    <detailsCartProvider.Provider value={value}>{children}</detailsCartProvider.Provider>
+    <detailsCartProvider.Provider value={value}>
+      {children}
+    </detailsCartProvider.Provider>
   );
 };
 

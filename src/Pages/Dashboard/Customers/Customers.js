@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useQuery } from "react-query";
+import { userProvider } from "../../../Context/UserContext";
 
 const Customers = () => {
+  const { user } = useContext(userProvider);
   const { data: customers = [] } = useQuery({
-    queryKey: ["customers"],
+    queryKey: ["customers", user?.email],
     queryFn: () =>
-      fetch("http://localhost:5000/customers").then((res) => res.json()),
+      fetch(`http://localhost:5000/customers`).then((res) => res.json()),
   });
 
   return (

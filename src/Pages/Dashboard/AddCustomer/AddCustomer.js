@@ -22,8 +22,9 @@ const AddCustomer = () => {
       email: data.email,
       role: data.role,
     };
+    
     setIsPosting(false)
-    fetch("http://localhost:5000/customer", {
+    fetch(`http://localhost:5000/customer/`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

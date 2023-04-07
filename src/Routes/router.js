@@ -16,6 +16,7 @@ import ProductDetails from "../Pages/ProductDetails/ProductDetails";
 import Cart from "../Pages/Cart/Cart";
 import PaymentDetails from "../Pages/PaymentDetails/PaymentDetails";
 import Checkout from "../Pages/Checkout/Checkout";
+import AdminRoute from "./AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -72,17 +73,21 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: '/checkout',
-        element: <Checkout></Checkout>
-      }
+        path: "/checkout",
+        element: (
+          <PrivateRoute>
+            <Checkout></Checkout>
+          </PrivateRoute>
+        ),
+      },
     ],
   },
   {
     path: "/dashboard",
     element: (
-      <PrivateRoute>
+      <AdminRoute>
         <DashboardLayout></DashboardLayout>
-      </PrivateRoute>
+      </AdminRoute>
     ),
     children: [
       {

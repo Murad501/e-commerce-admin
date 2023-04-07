@@ -61,7 +61,7 @@ const ProductDetails = () => {
       quantity: productQuantity,
       user: user?.email,
     };
-    fetch("http://localhost:5000/cart", {
+    fetch(`http://localhost:5000/cart/`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

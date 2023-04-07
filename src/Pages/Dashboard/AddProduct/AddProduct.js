@@ -46,8 +46,9 @@ const AddProduct = () => {
             description: data.description,
             date: new Date(),
           };
+          
 
-          fetch("http://localhost:5000/product", {
+          fetch(`http://localhost:5000/product`, {
             method: "POST",
             headers: {
               "content-type": "application/json",
@@ -62,7 +63,6 @@ const AddProduct = () => {
             .catch((err) => console.log(err));
 
           toast.success("image upload successfully");
-          console.log(product);
           setIsPosting(false);
         }
       });

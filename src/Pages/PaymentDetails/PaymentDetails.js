@@ -24,7 +24,6 @@ const PaymentDetails = () => {
 
   const { products: cartProducts } = useContext(cartProvider);
   const available = cartProducts.find((pdct) => pdct._id === id);
-  console.log(available);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",

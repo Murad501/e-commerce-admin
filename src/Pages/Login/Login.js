@@ -20,6 +20,17 @@ const Login = () => {
   const handleLogin = (data) => {
     loginUser(data.email, data.password)
       .then(() => {
+        fetch("http://localhost:5000/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({ email: data.email }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            localStorage.setItem("token", data.token);
+          });
         navigate(from, { replace: true });
         toast.success("user login successfully");
       })

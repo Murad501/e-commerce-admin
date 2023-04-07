@@ -3,11 +3,13 @@ import LoadingButton from "./LoadingButton";
 import { detailsCartProvider } from "../Context/DetailsCartContext";
 import { loadingProvider } from "../Context/LoadingContext";
 import { useNavigate } from "react-router-dom";
+import { userProvider } from "../Context/UserContext";
 
 const CheckoutForm = ({ product }) => {
   const [processing, setProcessing] = useState(false);
   const { myCart, isLoading, refetch } = useContext(detailsCartProvider);
   const { setIsLoading } = useContext(loadingProvider);
+  const {user} = useContext(userProvider)
   const navigate = useNavigate()
 
   if (isLoading) {
@@ -25,10 +27,20 @@ const CheckoutForm = ({ product }) => {
   const handlePayment = (e) => {
     e.preventDefault()
     setProcessing(true);
+    const order = {
+        ...currentProduct,
+        buyer: user?.email,
+        date: new Date(),
+        productId: currentProduct._id
+    }
 
     setTimeout(() => {
       fetch(`http://localhost:5000/handle-checkout-by/${currentProduct?._id}`, {
-        method: "DELETE",
+        method: "POST",
+        headers: {
+            'content-type': 'application/json',
+        },
+        body: JSON.stringify({order})
       })
         .then((res) => res.json())
         .then((result) => {

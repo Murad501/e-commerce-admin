@@ -26,7 +26,9 @@ const ProductCard = ({ product, refetch }) => {
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify({ quantity: productQuantity + 1 }),
+      body: JSON.stringify({
+        quantity: productQuantity + 1,
+      }),
     })
       .then((res) => res.json())
       .then(() => cartRefetch());
@@ -41,7 +43,9 @@ const ProductCard = ({ product, refetch }) => {
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify({ quantity: productQuantity - 1 }),
+      body: JSON.stringify({
+        quantity: productQuantity - 1,
+      }),
     })
       .then((res) => res.json())
       .then(() => cartRefetch());

@@ -12,6 +12,7 @@ import ProductContext from "./Context/ProductContext";
 import CartContext from "./Context/CartContext";
 import PaymentDetailsContext from "./Context/PaymentDetailsContext";
 import DetailsCartContext from "./Context/DetailsCartContext";
+import OrderContext from "./Context/OrderContext";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -27,7 +28,9 @@ root.render(
               <CartContext>
                 <DetailsCartContext>
                   <PaymentDetailsContext>
-                    <App />
+                    <OrderContext>
+                      <App />
+                    </OrderContext>
                   </PaymentDetailsContext>
                 </DetailsCartContext>
               </CartContext>

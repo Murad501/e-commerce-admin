@@ -9,10 +9,10 @@ const PaymentDetailsContext = ({ children }) => {
   useEffect(() => {
     if (user) {
       fetch(`http://localhost:5000/payment-details/${user?.email}`)
-      .then(res => res.json())
-      .then(data => {
-        setPaymentDetails(data.paymentDetails)
-      })
+        .then((res) => res.json())
+        .then((data) => {
+          setPaymentDetails(data.paymentDetails);
+        });
     }
   }, [user]);
 

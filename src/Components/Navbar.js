@@ -5,11 +5,13 @@ import { useOnClickOutside } from "usehooks-ts";
 import { userProvider } from "../Context/UserContext";
 import { loadingProvider } from "../Context/LoadingContext";
 import { HiShoppingCart } from "react-icons/hi";
+import useAdmin from "../Hooks/useAdmin";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { logOut, user } = useContext(userProvider);
   const { setIsLoading } = useContext(loadingProvider);
+  const { isAdmin } = useAdmin();
 
   const handleLogOut = () => {
     logOut()
@@ -42,7 +44,6 @@ const Navbar = () => {
 
       {user && (
         <>
-          
           <li>
             <Link
               className={`font-semibold bg-transparent px-3 py-2 hover:text-emerald-700`}
@@ -51,14 +52,16 @@ const Navbar = () => {
               Shop
             </Link>
           </li>
-          <li>
-            <Link
-              className={`font-semibold bg-transparent px-3 py-2 hover:text-emerald-700`}
-              to="/dashboard"
-            >
-              Dashboard
-            </Link>
-          </li>
+          {isAdmin && (
+            <li>
+              <Link
+                className={`font-semibold bg-transparent px-3 py-2 hover:text-emerald-700`}
+                to="/dashboard"
+              >
+                Dashboard
+              </Link>
+            </li>
+          )}
           <li>
             <Link
               className={`font-semibold bg-transparent px-3 py-2 hover:text-emerald-700 flex items-center`}

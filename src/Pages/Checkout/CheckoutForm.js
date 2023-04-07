@@ -26,9 +26,20 @@ const CheckoutForm = () => {
     e.preventDefault();
     setProcessing(true);
 
+    const orders = myCart.map((product) => ({
+      ...product,
+      buyer: user?.email,
+      date: new Date(),
+      productId: product._id,
+    }));
+
     setTimeout(() => {
-      fetch(`http://localhost:5000/handle-checkout/${user?.email}`, {
-        method: "DELETE",
+      fetch(`http://localhost:5000/handle-checkout`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ orders }),
       })
         .then((res) => res.json())
         .then((result) => {

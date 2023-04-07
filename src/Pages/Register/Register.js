@@ -5,11 +5,13 @@ import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { userProvider } from "../../Context/UserContext";
 import { saveUser } from "../../Shared/saveUser";
+import { FaRadiation } from "react-icons/fa";
 
 const Register = () => {
   const { createUser } = useContext(userProvider);
   const [firebaseError, setFirebaseError] = useState("");
   const [passwordWarning, setPasswordWarning] = useState("");
+  const [registering, setRegistering] = useState(false);
 
   const passwordCheck = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
@@ -24,7 +26,6 @@ const Register = () => {
   } = useForm();
   //email & password registration user
   const handleRegister = (data) => {
-    console.log("handle register");
     if (!data.password.match(passwordCheck)) {
       return setPasswordWarning(
         "The password must be at least 8 characters and contain lowercase, uppercase, number and special characters"
@@ -32,13 +33,25 @@ const Register = () => {
     } else {
       setPasswordWarning("");
     }
+    setRegistering(true);
     createUser(data.email, data.password)
       .then((result) => {
         const user = {
           name: data.name,
           email: data.email,
-          role: "buyer",
+          role: "user",
         };
+        fetch("http://localhost:5000/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({ email: data.email }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            localStorage.setItem("token", data.token);
+          });
         saveUser(user);
         const currentUser = result.user;
         updateProfile(currentUser, {
@@ -46,12 +59,18 @@ const Register = () => {
         })
           .then(() => {
             navigate(from, { replace: true });
-
+            setRegistering(false);
             toast.success("user register successfully");
           })
-          .catch((err) => setFirebaseError(err.message));
+          .catch((err) => {
+            setRegistering(false);
+            setFirebaseError(err.message);
+          });
       })
-      .catch((err) => setFirebaseError(err.message));
+      .catch((err) => {
+        setRegistering(false);
+        setFirebaseError(err.message);
+      });
   };
 
   return (
@@ -124,12 +143,23 @@ const Register = () => {
           </div>
 
           <div className="form-control mt-6">
-            <button
-              type="submit"
-              className="py-3 bg-emerald-700 rounded-sm text-white font-semibold"
-            >
-              Register
-            </button>
+            {registering ? (
+              <button
+                type="button"
+                className={`py-3 bg-emerald-700 rounded-sm text-white font-semibold flex justify-center items-center`}
+                disabled
+              >
+                <FaRadiation className="animate-spin h-5 w-5 mr-3 "></FaRadiation>
+                Loading...
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className="py-3 bg-emerald-700 rounded-sm text-white font-semibold"
+              >
+                Register
+              </button>
+            )}
           </div>
         </form>
         <p className="text-center my-4">
