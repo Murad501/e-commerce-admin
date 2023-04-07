@@ -34,7 +34,7 @@ const CheckoutForm = () => {
     }));
 
     setTimeout(() => {
-      fetch(`https://e-commerce-admin-server-tawny.vercel.app/handle-checkout`, {
+      fetch(`https://e-commerce-admin-server-tawny.vercel.app/handle-checkout/${user?.email}`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
